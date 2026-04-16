@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grace Joy P. Biaras | My Portfolio</title>
+
+<style>
+  body {
+    font-family: 'Times New Roman', serif;
+    background: linear-gradient(to bottom right, #ffe6e6, #fff5f5);
+    color: #000;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background-color: #ff9999;
+    text-align: center;
+    padding: 30px 20px;
+  }
+
+  .profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+  }
+
+  header h1 {
+    margin: 10px 0 5px 0;
+    font-weight: 900;
+    font-size: 24px;
+  }
+
+  header p {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  nav {
+    background-color: #ffb3b3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    position: relative;
+  }
+
+  nav a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+    cursor: pointer;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+  }
+
+  nav a:hover {
+    color: #660000;
+  }
+
+  .underline {
+    position: absolute;
+    bottom: 0;
+    height: 3px;
+    background-color: #660000;
+    width: 0;
+    left: 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+  }
+
+  section {
+    display: none;
+    max-width: 900px;
+    margin: 25px auto;
+    padding: 20px;
+    background-color: #fffafa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  section h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #330000;
+  }
+
+  p {
+    font-size: 16px;
+    text-align: justify;
+    line-height: 1.5;
+  }
+
+  figure {
+    display: inline-block;
+    text-align: center;
+    margin: 15px;
+  }
+
+  figure img, iframe {
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.2);
+  }
+
+  figcaption {
+    margin-top: 5px;
+    font-size: 14px;
+  }
+
+  ul {
+    list-style-type: square;
+    padding-left: 40px;
+  }
+
+  ul li a {
+    color: #660000;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  ul li a:hover {
+    text-decoration: underline;
+  }
+
+  .contact-info {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .message-box {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fffafa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  }
+
+  .message-box input,
+  .message-box textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Times New Roman', serif;
+  }
+
+  .message-box button {
+    background-color: #ff8080;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .message-box button:hover {
+    background-color: #e67373;
+  }
+
+  footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #ff9999;
+    font-size: 14px;
+    color: #000;
+    margin-top: 15px;
+  }
+
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 200px;
+  background: #fff5f5;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  z-index: 9999;
+}
+
+.chatbot-header {
+  background: #ff9999;
+  color: #330000;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.chatbot-body {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+}
+
+.chatbot-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background: #fffafa;
+}
+
+.bot-message,
+.user-message {
+  margin: 6px 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  max-width: 80%;
+}
+
+.bot-message {
+  background: #ffcccc;
+  color: #330000;
+}
+
+.user-message {
+  background: #ff8080;
+  color: white;
+  margin-left: auto;
+}
+
+.chatbot-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+
+.chatbot-input input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background: #fff;
+}
+
+.chatbot-input button {
+  background: #ff8080;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.chatbot-input button:hover {
+  background: #e67373;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="/grace.jpeg" alt="Grace Joy Biaras" class="profile-photo">
+  <h1>Grace Joy P. Biaras</h1>
+  <p>BS in Information Technology | Central Philippines State University</p>
+</header>
+
+<a class="cv-link" href="https://drive.google.com/file/d/19uDry6wZxsrAn-IVp11UgODMWDIcLC8M/view?usp=drivesdk" 
+   target="_blank">
+   📄 DOWNLOAD CV
+</a>
+
+<nav>
+  <a class="active" onclick="showSection('home', this)">Home</a>
+  <a onclick="showSection('about', this)">About</a>
+  <a onclick="showSection('projects', this)">Projects</a>
+  <a onclick="showSection('skills', this)">Skills</a>
+  <a onclick="showSection('contact', this)">Contact</a>
+  <div class="underline"></div>
+</nav>
+
+<!-- Home Section -->
+<section id="home" class="active">
+  <h2>🏠 Welcome!</h2>
+  <p>Hi! Welcome to my personal portfolio website. Here, you’ll get to know more about me, my profile, skills, and projects. Feel free to explore each section by clicking the navigation links above!</p>
+</section>
+
+<!-- About Section -->
+<section id="about">
+  <h2>👩‍💻 About Me</h2>
+  <p>
+    Hello! My name is <b>Grace Joy P. Biaras</b>, but you can call me Grace for short.
+    I am currently studying at <b>Central Philippines State University – Moises Padilla Campus</b>,
+    taking a <b>Bachelor of Science in Information Technology</b>. I know that my story is far from done,
+    but the best is yet to come.
+  </p>
+</section>
+
+<!-- Projects Section -->
+<section id="projects">
+  <h2>📂 My Projects</h2>
+
+  <ul>
+    <li><a href="#" target="_blank">Canva Design 1</a></li>
+    <li><a href="#" target="_blank">Canva Design 2</a></li>
+    <li><a href="#" target="_blank">Figma Portfolio</a></li>
+  </ul>
+
+  <div style="text-align:center; margin-top:20px;">
+    <figure>
+    <img src="/chessboard.jpeg" alt="Chessboard Design using Photoshop" width="150" height="150">
+      <figcaption>Chessboard Design using Photoshop</figcaption>
+    </figure>
+
+    <figure>
+      <img src="/Layout.jpeg" alt="T-shirt Layout" width="150" height="150">
+      <figcaption>T-shirt Layout</figcaption>
+    </figure>
+
+    <figure>
+      <img src="/design.jpeg" alt="Actual Product Design" width="150" height="150">
+      <figcaption>Actual Product Design</figcaption>
+    </figure>
+  </div>
+
+  <div style="text-align:center; margin-top:30px;">
+    <h3>🎥 Video Projects</h3>
+
+    <figure>
+      <iframe width="250" height="150" src="/PowerPoint Presentation.mp4" title=" PowerPoint presentation Tutorial" allowfullscreen></iframe>
+      <figcaption>PowerPoint presentation Tutorial</figcaption>
+    </figure>
+
+    <figure>
+      <iframe width="250" height="150" src="/Microsoft Excel.mp4" title="Microsoft Excel" allowfullscreen></iframe>
+      <figcaption>Microsoft Excel Tutorial</figcaption>
+    </figure>
+
+    <figure>
+      <iframe width="250" height="150" src="/GuitHub.mp4" title="GitHub" allowfullscreen></iframe>
+      <figcaption>GitHub Tutorial</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills">
+  <h2>💡 My Skills</h2>
+  <ul>
+    <li>Web Design (HTML, CSS, Figma, Canva)</li>
+    <li>Basic Programming (Java, C++)</li>
+  </ul>
+  
+    <div style="text-align:center; margin-top:20px;">
+    <figure>
+    <img src="/Cisco.jpeg" alt="Chessboard Design using Photoshop" width="150" height="150">
+      <figcaption>Digital Safety and Security Awareness</figcaption>
+    </figure
+    
+        <figure>
+    <img src="/IT Seminar.jpg" alt="Chessboard Design using Photoshop" width="150" height="150">
+      <figcaption>IT Seminar</figcaption>
+    </figure>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+  <h2>📞 Contact Me</h2>
+  <div class="contact-info">
+    <p><b>Contact Number:</b> 09948621149</p>
+    <p><b>Email:</b> gracejoybiaras@gmail.com</p>
+  </div>
+
+  <div class="message-box">
+    <h3>💬 Send a Message</h3>
+   <form onsubmit="sendForm(event)">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="4" placeholder="Your Message or Feedback..." required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Grace Joy P. Biaras | All Rights Reserved</p>
+</footer>
+
+<!-- CHATBOT -->
+<div class="chatbot-container">
+  <div class="chatbot-header" onclick="toggleChat()">💬 Chatbot</div>
+
+  <div class="chatbot-body" id="chatbotBody">
+    <div class="chatbot-messages" id="chatMessages">
+      <div class="bot-message">Hi! I'm Grace's assistant 😊 Ask me anything!</div>
+    </div>
+
+    <div class="chatbot-input">
+      <input type="text" id="userInput" placeholder="Type a message..." onkeypress="handleKey(event)">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const underline = document.querySelector('.underline');
+  const links = document.querySelectorAll('nav a');
+  const nav = document.querySelector('nav');
+
+function sendForm(event) {
+  event.preventDefault();
+
+  alert("Message sent successfully! 💖");
+
+  // reset form after sending
+  event.target.reset();
+}
+  function moveUnderline(link) {
+    const linkRect = link.getBoundingClientRect();
+    const navRect = nav.getBoundingClientRect();
+    underline.style.width = linkRect.width + 'px';
+    underline.style.left = (linkRect.left - navRect.left) + 'px';
+  }
+
+  function showSection(sectionId, element) {
+    document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+    document.getElementById(sectionId).classList.add("active");
+    moveUnderline(element);
+  }
+
+  window.addEventListener('load', () => {
+    const activeLink = document.querySelector('nav a.active') || links[0];
+    moveUnderline(activeLink);
+  });
+  
+  // CHATBOT TOGGLE
+function toggleChat() {
+  const body = document.getElementById("chatbotBody");
+  body.style.display = body.style.display === "block" ? "none" : "block";
+}
+
+// ENTER KEY SUPPORT
+function handleKey(event) {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+}
+
+// SMART CHATBOT
+function sendMessage() {
+  const input = document.getElementById("userInput");
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  const chat = document.getElementById("chatMessages");
+
+  chat.innerHTML += `<div class="user-message">${msg}</div>`;
+
+  const text = msg.toLowerCase();
+  let reply;
+
+  if (text.includes("hi") || text.includes("hello")) {
+    reply = "Hello! 😊 Welcome to my portfolio!";
+  }
+  else if (text.includes("name")) {
+    reply = "I'm Grace Joy P. Biaras 💖";
+  }
+  else if (text.includes("skills")) {
+    reply = "My skills are Web Design, HTML, CSS, Programming 💻";
+  }
+  else if (text.includes("project")) {
+    reply = "Check my Projects section 📂";
+  }
+  else if (text.includes("contact")) {
+    reply = "You can find my contact info in the Contact section 📩";
+  }
+  else if (text.includes("thank")) {
+    reply = "You're welcome! 💖";
+  }
+  else {
+    reply = "Try asking about my name, skills, or projects 😊";
+  }
+
+  chat.innerHTML += `<div class="bot-message">${reply}</div>`;
+
+  input.value = "";
+  chat.scrollTop = chat.scrollHeight;
+}
+  
+</script>
+
+</body>
+</html>
