@@ -269,6 +269,54 @@
 .chatbot-input button:hover {
   background: #e67373;
 }
+  
+/* ✅ PASTE HERE */
+.project-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.project-card {
+  background: #fff;
+  padding: 20px;
+  width: 250px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.project-card h3 {
+  color: #660000;
+  margin-bottom: 10px;
+}
+
+.project-card p {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.project-card a {
+  display: inline-block;
+  padding: 8px 15px;
+  background: #ff8080;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.project-card a:hover {
+  background: #e67373;
+}
 </style>
 </head>
 
@@ -315,11 +363,25 @@
 <section id="projects">
   <h2>📂 My Projects</h2>
 
-  <ul>
-    <li><a href="#" target="_blank">Canva Design 1</a></li>
-    <li><a href="#" target="_blank">Canva Design 2</a></li>
-    <li><a href="#" target="_blank">Figma Portfolio</a></li>
-  </ul>
+  <div class="project-container">
+
+  <div class="project-card">
+    <h3>E-Commerce</h3>
+    <p>Online shopping design</p>
+    <a href="https://www.figma.com/proto/V6YIAN1VaSseKL0WEhc6Pt/E-Commerce?page-id=0%3A1&node-id=1-844&viewport=309%2C145%2C0.7&t=66b2Dzv7YlwYvlbG-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A844" target="_blank">
+      View
+    </a>
+  </div>
+
+  <div class="project-card">
+    <h3>My Portfolio</h3>
+    <p>Personal design project</p>
+    <a href="https://www.figma.com/proto/eYtaynGLMFq1hWtY2eFKmA/My-Portfolio?page-id=&node-id=1-2&p=f&viewport=89%2C-251%2C0.7&t=CyAdzsJesg2vDc2h-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A2" target="_blank">
+      View
+    </a>
+  </div>
+
+  </div>
 
   <div style="text-align:center; margin-top:20px;">
     <figure>
